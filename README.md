@@ -14,4 +14,6 @@
 <li>Создать Telegram BOT через BotFather - https://core.telegram.org/bots#3-how-do-i-create-a-bot</li>
 <li>Установите бота в качестве администратора на своем канале</li>
 </ul>
+Далее в строке 167 добавить ключ API, сгенерированный BotFather при создании вашего бота.
+В строке 170 - название или ID вашего канала (например, @my_channel_name).
 
