@@ -225,8 +225,8 @@ requests.get("https://api.telegram.org/bot{}/sendMessage".format(tg_token), para
          +" | "
          +str(dataDirectTrafficCompare)
          +"\n"
-#Переходы по слову Комус
-         +"ОРГАНИКА ПО СЛОВУ 'КОМУС'"
+#Переходы по слову КЛЮЧЕВАЯ ФРАЗА
+         +"ОРГАНИКА ПО СЛОВУ 'КЛЮЧЕВАЯ ФРАЗА'"
          +"\n"
          +str(dataKeywordRealFinish)
          +" | "
