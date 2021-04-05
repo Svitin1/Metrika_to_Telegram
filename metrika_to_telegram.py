@@ -6,6 +6,7 @@ COUNTER_ID = НОМЕР СЧЕТЧИКА
 
 api = YandexMetrikaStats(access_token=METRIKA_TOKEN)
 
+
 # Запрос визитов из ПС Яндекс
 paramsSEOYandex = dict(
     ids=COUNTER_ID,
@@ -18,6 +19,7 @@ paramsSEOYandex = dict(
     limit=100
 )
 result = api.stats().get(params=paramsSEOYandex)
+
 data = result().transform()
 
 # Обработка данных ПС Yandex
@@ -37,7 +39,9 @@ paramsSEOGoogle = dict(
     limit=100
 )
 result2 = api.stats().get(params=paramsSEOGoogle)
+
 data2 = result2().transform()
+
 
 # Обработка данных ПС Google
 dataSEOGoogleLastFinish = data2[1][2]
@@ -45,24 +49,26 @@ dataSEOGoogleRealFinish = data2[-1][2]
 dataSEOGoogleCompare = "%.0f%%" % (100 * (dataSEOGoogleRealFinish-dataSEOGoogleLastFinish)/dataSEOGoogleLastFinish)
 
 # Запрос визитов из Яндекс Директ
+'''
 paramsPaidYDirect = dict(
     ids=COUNTER_ID,
     metrics="ym:s:visits",
     date1="8daysAgo",
     date2="yesterday",
     dimensions="ym:s:lastAdvEngine,ym:s:date",
-    filters="ym:s:lastAdvEngine=='ya_direct'",
+    filters="ym:s:lastAdvEngine=='yandex.direct'",
     sort="ym:s:date",
     limit=100
 )
 result3 = api.stats().get(params=paramsPaidYDirect)
+
 data3 = result3().transform()
 
 # Обработка данных Яндекс Директ
 dataPaidYDirectLastFinish = data3[1][2]
 dataPaidYDirectRealFinish = data3[-1][2]
 dataPaidYDirectCompare = "%.0f%%" % (100 * (dataPaidYDirectRealFinish-dataPaidYDirectLastFinish)/dataPaidYDirectLastFinish)
-
+'''
 # Запрос визитов из Google Adwords
 paramsPaidGAdwords = dict(
     ids=COUNTER_ID,
@@ -75,6 +81,7 @@ paramsPaidGAdwords = dict(
     limit=100
 )
 result4 = api.stats().get(params=paramsPaidGAdwords)
+
 data4 = result4().transform()
 
 # Обработка данных Google Adwords
@@ -94,6 +101,7 @@ paramsPaidYMarket= dict(
     limit=100
 )
 result5 = api.stats().get(params=paramsPaidYMarket)
+
 data5 = result5().transform()
 
 # Обработка данных Яндекс Маркет
@@ -113,7 +121,9 @@ paramsDirectTraffic = dict(
     limit=100
 )
 result6 = api.stats().get(params=paramsDirectTraffic)
+
 data6 = result6().transform()
+
 
 #Выборка данных по прямым заходам
 dataDirectTrafficLastFinish = data6[1][2]
@@ -126,12 +136,14 @@ paramsKeyword = dict(
     date1="8daysAgo",
     date2="yesterday",
     dimensions="ym:s:lastSearchPhrase,ym:s:date",
-    filters="ym:s:lastSearchPhrase=='ПОИСКОВАЯ ФРАЗА'",
+    filters="ym:s:lastSearchPhrase=='комус'",
     sort="ym:s:date",
     limit=100
 )
 result7 = api.stats().get(params=paramsKeyword)
+
 data7 = result7().transform()
+
 
 #Выборка данных по прямым заходам
 dataKeywordLastFinish = data7[1][2]
@@ -139,10 +151,10 @@ dataKeywordRealFinish = data7[-1][2]
 dataKeywordCompare = "%.0f%%" % (100 * (dataKeywordRealFinish-dataKeywordLastFinish)/dataKeywordLastFinish)
 
 #Отправка в Telegram
-tg_token = "ТОКЕН ТЕЛЕГРАМ БОТА"
+tg_token = "ТОКЕН"
 
 requests.get("https://api.telegram.org/bot{}/sendMessage".format(tg_token), params=dict(
-   chat_id="ID КАНАЛА",
+   chat_id="ЧАТ_ID",
    parse_mode="html",
    text= #Трафик из поисковых систем
          "<b>Поисковые системы:</b>"
@@ -169,6 +181,7 @@ requests.get("https://api.telegram.org/bot{}/sendMessage".format(tg_token), para
          +"\n"
          +"<b>Рекламные системы:</b>"
 #Яндекс Директ
+'''
          +"\n"
          +"\n"
          +"YANDEX DIRECT"
@@ -179,6 +192,7 @@ requests.get("https://api.telegram.org/bot{}/sendMessage".format(tg_token), para
          +" | "
          +str(dataPaidYDirectCompare)
          +"\n"
+'''
 #Google Adwords
          +"GOOGLE ADWORDS"
          + "\n"
@@ -211,8 +225,8 @@ requests.get("https://api.telegram.org/bot{}/sendMessage".format(tg_token), para
          +" | "
          +str(dataDirectTrafficCompare)
          +"\n"
-#Переходы по слову 
-         +"ОРГАНИКА ПО СЛОВУ 'ПОИСКОВАЯ ФРАЗА'"
+#Переходы по слову Комус
+         +"ОРГАНИКА ПО СЛОВУ 'КОМУС'"
          +"\n"
          +str(dataKeywordRealFinish)
          +" | "
